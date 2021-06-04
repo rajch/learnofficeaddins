@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="TaskPaneApp">
+  <!--IMPORTANT! Id must be unique for each add-in. If you copy this manifest ensure that you change this id to your own GUID. -->
+  <Id>eb56ce18-c100-4d3c-833d-4938e67c3d6e</Id>
+  <Version>1.0</Version>
+  <ProviderName>Dr. Nitin Paranajape</ProviderName>
+  <DefaultLocale>en-US</DefaultLocale>
+  <DisplayName DefaultValue="Learn Office Web Add-ins" />
+  <Description DefaultValue="Learn Office Web Add-ins"/>
+  <SupportUrl DefaultValue="https://efficiency365.com" />
+  <AppDomains>
+    <AppDomain>https://rajch.github.io</AppDomain>
+  </AppDomains>
+  <DefaultSettings>
+    <SourceLocation DefaultValue="https://rajch.github.io/learnofficeaddins/index.html" />
+  </DefaultSettings>
+  <Permissions>ReadWriteDocument</Permissions>
+</OfficeApp>
