@@ -16,4 +16,14 @@
     <SourceLocation DefaultValue="https://rajch.github.io/learnofficeaddins/index.html" />
   </DefaultSettings>
   <Permissions>ReadWriteDocument</Permissions>
+  <Hosts>
+    <Host Name="Workbook" />
+    <Host Name="Document" />
+  </Hosts>
+  <Requirements>
+    <Sets>
+      <Set Name="Excelapi" MinVersion="1.11" />
+      <Set Name="Wordapi" MinVersion="1.3" />
+    </Set>
+  </Requirements>
 </OfficeApp>
