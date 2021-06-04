@@ -1,12 +1,30 @@
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Learn Office Web Add-ins</title>
+    <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
 </head>
+
 <body>
     <h1>Learn Office Web Add-ins</h1>
     <p>Initially, this does nothing.</p>
+    <script>
+        Office.onReady(function (info) {
+            /*
+            if (info.host === Office.HostType.Excel) {
+                // Do Excel-specific initialization (for example, make add-in task pane's
+                // appearance compatible with Excel "green").
+            }
+            if (info.platform === Office.PlatformType.PC) {
+                // Make minor layout changes in the task pane.
+            }
+            */
+            console.log(`Office.js is now ready in ${info.host} on ${info.platform}`);
+        });
+    </script>
 </body>
+
 </html>
