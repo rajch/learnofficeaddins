@@ -28,16 +28,20 @@
                 case Office.HostType.Excel:
                     Excel.run(function (context) {
                         addthis = context.workbook.worksheets.getCount();
-                        return context.sync();
+                        return context.sync().then(function () {
+                            document.getElementById("prod").innerHTML = myHost + " - " + info.platform + addthis;
+                            // 
+                        });
                     })
                     break;
 
                 default:
                     addthis = "nothing to do"
+                    document.getElementById("prod").innerHTML = myHost + " - " + info.platform + addthis;
                     break;
             }
 
-            document.getElementById("prod").innerHTML = myHost + " - " + info.platform + addthis;
+
 
             /*
             
