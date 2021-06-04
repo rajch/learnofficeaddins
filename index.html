@@ -27,9 +27,9 @@
             switch (myHost) {
                 case Office.HostType.Excel:
                     Excel.run(function (context) {
-                        addthis = context.workbook.worksheets.getCount().value;
+                        addthis = context.workbook.worksheets.getCount();
                         return context.sync().then(function () {
-                            document.getElementById("prod").innerHTML = myHost + " - " + info.platform + addthis;
+                            document.getElementById("prod").innerHTML = myHost + " - " + info.platform + addthis.value;
                             // 
                         });
                     })
