@@ -29,12 +29,20 @@
                     Excel.run(function (context) {
                         addthis = context.workbook.worksheets.getCount();
                         return context.sync().then(function () {
-                            document.getElementById("prod").innerHTML = myHost + " - " + info.platform + addthis.value;
+                            document.getElementById("prod").innerHTML = myHost + " - " + info.platform + " - " + addthis.value + " sheets"
                             // 
                         });
                     })
                     break;
-
+                case Office.HostType.Word:
+                    Word.run(function (context) {
+                        addthis = context.document.body.paragraphs.getCount();
+                        return context.sync().then(function () {
+                            document.getElementById("prod").innerHTML = myHost + " - " + info.platform + " - " + addthis.value + " paragraphs"
+                            // 
+                        });
+                    })
+                    break;
                 default:
                     addthis = "nothing to do"
                     document.getElementById("prod").innerHTML = myHost + " - " + info.platform + addthis;
