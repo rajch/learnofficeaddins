@@ -28,6 +28,7 @@
                 case Office.HostType.Excel:
                     Excel.run(function (context) {
                         addthis = context.workbook.worksheets.getCount();
+                        return context.sync();
                     })
                     break;
 
