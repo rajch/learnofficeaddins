@@ -15,9 +15,29 @@
     <script>
         Office.onReady(function (info) {
 
-            document.getElementById("prod").innerHTML = info.host + " - " + info.platform
+            var myHost = info.host;
+
+            // if word - pages
+            // if ppt - slides
+            // if excel - sheets
+            var addthis = ""
+            switch (myHost) {
+                case value: Office.HostType.Excel
+                    Excel.run(function (context) {
+                        addthis = context.workbook.worksheets.getCount();
+                    })
+                    break;
+
+                default:
+                    addthis = "nothing to do"
+                    break;
+            }
+
+            document.getElementById("prod").innerHTML = myHost + " - " + info.platform + addthis;
 
             /*
+            
+            
             if (info.host === Office.HostType.Excel) {
                 // Do Excel-specific initialization (for example, make add-in task pane's
                 // appearance compatible with Excel "green").
