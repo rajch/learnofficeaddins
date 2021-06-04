@@ -24,6 +24,6 @@
     <Sets>
       <Set Name="Excelapi" MinVersion="1.11" />
       <Set Name="Wordapi" MinVersion="1.3" />
-    </Set>
+    </Sets>
   </Requirements>
 </OfficeApp>
