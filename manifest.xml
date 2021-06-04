@@ -8,7 +8,7 @@
   <DefaultLocale>en-US</DefaultLocale>
   <DisplayName DefaultValue="Learn Office Web Add-ins" />
   <Description DefaultValue="Learn Office Web Add-ins"/>
-  <IconUrl DefaultValue="https://rajch/github.io/images/icon-32.png" />
+  <IconUrl DefaultValue="https://rajch.github.io/images/icon-32.png" />
   <SupportUrl DefaultValue="https://efficiency365.com" />
   <AppDomains>
     <AppDomain>https://rajch.github.io</AppDomain>
