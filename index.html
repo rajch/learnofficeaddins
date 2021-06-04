@@ -10,9 +10,13 @@
 
 <body>
     <h1>Learn Office Web Add-ins</h1>
-    <p>Initially, this does nothing.</p>
+    <p>Add-in Running Inside</p>
+    <p id="prod"></p>
     <script>
         Office.onReady(function (info) {
+
+            document.getElementById("prod").innerHTML = info.host + " - " + info.platform
+
             /*
             if (info.host === Office.HostType.Excel) {
                 // Do Excel-specific initialization (for example, make add-in task pane's
