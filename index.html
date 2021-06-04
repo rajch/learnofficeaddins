@@ -36,9 +36,10 @@
                     break;
                 case Office.HostType.Word:
                     Word.run(function (context) {
-                        addthis = context.document.body.paragraphs.getCount();
+                        var paracoll = context.document.body.paragraphs
+                        paracoll.load("items")
                         return context.sync().then(function () {
-                            document.getElementById("prod").innerHTML = myHost + " - " + info.platform + " - " + addthis.value + " paragraphs"
+                            document.getElementById("prod").innerHTML = myHost + " - " + info.platform + " - " + paracoll.items.length + " paragraphs"
                             // 
                         });
                     })
