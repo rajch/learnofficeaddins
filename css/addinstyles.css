@@ -2,7 +2,7 @@ div.brandhead {
     position: relative;
 }
 
-div.head>div {
+div.brandhead>div {
     display: inline-block;
     vertical-align: middle
 }
