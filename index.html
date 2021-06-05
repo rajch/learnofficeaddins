@@ -28,17 +28,19 @@
         //      iconClass: name of CSS class for the product icon.
         //      backgroundColor: RGB hex code for the product brand color.
         //      handlerfunction: function to execute if add-in is run in that host.
+        //                          It will take the "info" object as a parameter.
         let hosthandlers = {}
 
         // Excel handler
         hosthandlers[Office.HostType.Excel] = {
             iconClass: "ms-BrandIcon--excel",
             backgroundColor: "#217346",
-            handlerfunction: function () {
+            handlerfunction: function (info) {
+                // if excel - sheets
                 Excel.run(function (context) {
                     let addthis = context.workbook.worksheets.getCount();
                     return context.sync().then(function () {
-                        document.getElementById("prod").innerHTML = myHost + " - " + info.platform + " - " + addthis.value + " sheets"
+                        document.getElementById("prod").innerHTML = info.host + " - " + info.platform + " - " + addthis.value + " sheets"
                         // 
                     });
                 })
@@ -49,22 +51,27 @@
         hosthandlers[Office.HostType.Word] = {
             iconClass: "ms-BrandIcon--word",
             backgroundColor: "#2b579a",
-            handlerfunction: function () {
+            handlerfunction: function (info) {
+                // if word - pages
                 Word.run(function (context) {
                     var paracoll = context.document.body.paragraphs
                     paracoll.load("items")
                     return context.sync().then(function () {
-                        document.getElementById("prod").innerHTML = myHost + " - " + info.platform + " - " + paracoll.items.length + " paragraphs"
+                        document.getElementById("prod").innerHTML = info.host + " - " + info.platform + " - " + paracoll.items.length + " paragraphs"
                         // 
                     });
                 })
             }
         }
 
+        // TODO: PowerPoint handler
+        // if ppt - slides
+
         // This single function will do everything needed for
         // each handler.
-        function handleHost(host) {
-            let hosthandler = hosthandlers[host]
+        function handle(info) {
+            // Look for a handler for the current host
+            let hosthandler = hosthandlers[info.host]
 
             if (hosthandler) {
                 // If handler was found
@@ -78,24 +85,19 @@
                 brandheaddiv.style.backgroundColor = hosthandler.backgroundColor
 
                 // Run function
-                hosthandler.handlerfunction()
+                hosthandler.handlerfunction(info)
             } else {
                 // If no handler set
                 let addthis = "nothing to do"
-                    document.getElementById("prod").innerHTML = myHost + " - " + info.platform + addthis;
+                document.getElementById("prod").innerHTML = myHost + " - " + info.platform + addthis;
             }
         }
 
         Office.onReady(function (info) {
 
-            var myHost = info.host;
-            handleHost(myHost)
-
-            // if word - pages
-            // if ppt - slides
-            // if excel - sheets
-            // var addthis = ""
-
+            // Do whatever
+            handle(info)
+            // The above function replaces the following:
             // switch (myHost) {
             //     case Office.HostType.Excel:
             //         break;
@@ -104,6 +106,7 @@
             //     default:
             //         break;
             // }
+
             console.log(`Office.js is now ready in ${info.host} on ${info.platform}`);
         });
     </script>
