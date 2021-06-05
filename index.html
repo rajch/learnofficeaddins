@@ -7,62 +7,103 @@
     <title>Learn Office Web Add-ins</title>
     <link rel="stylesheet"
         href="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-core/9.6.1/css/fabric.min.css">
+    <link rel="stylesheet" href="css/addinstyles.css">
     <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
 </head>
 
 <body class="ms-Fabric">
-    <h1>Learn Office Web Add-ins</h1>
+    <div id="brandhead" class="brandhead">
+        <div id="brandicon" class="ms-BrandIcon--icon48"></div>
+        <div class="caption">
+            <h1>Learn Office Web Add-ins</h1>
+        </div>
+    </div>
+
     <p>Add-in Running Inside</p>
     <p id="prod"></p>
     <script>
+        // create "handlers" dictionary
+        // For each host, we will insert a handler object with the host as the key.
+        // Each handler object will have the following properties:
+        //      iconClass: name of CSS class for the product icon.
+        //      backgroundColor: RGB hex code for the product brand color.
+        //      handlerfunction: function to execute if add-in is run in that host.
+        let hosthandlers = {}
+
+        // Excel handler
+        hosthandlers[Office.HostType.Excel] = {
+            iconClass: "ms-BrandIcon--excel",
+            backgroundColor: "#217346",
+            handlerfunction: function () {
+                Excel.run(function (context) {
+                    let addthis = context.workbook.worksheets.getCount();
+                    return context.sync().then(function () {
+                        document.getElementById("prod").innerHTML = myHost + " - " + info.platform + " - " + addthis.value + " sheets"
+                        // 
+                    });
+                })
+            }
+        }
+
+        // Word handler
+        hosthandlers[Office.HostType.Word] = {
+            iconClass: "ms-BrandIcon--word",
+            backgroundColor: "#2b579a",
+            handlerfunction: function () {
+                Word.run(function (context) {
+                    var paracoll = context.document.body.paragraphs
+                    paracoll.load("items")
+                    return context.sync().then(function () {
+                        document.getElementById("prod").innerHTML = myHost + " - " + info.platform + " - " + paracoll.items.length + " paragraphs"
+                        // 
+                    });
+                })
+            }
+        }
+
+        // This single function will do everything needed for
+        // each handler.
+        function handleHost(host) {
+            let hosthandler = hosthandlers[host]
+
+            if (hosthandler) {
+                // If handler was found
+
+                // Set Icon
+                let icondiv = document.getElementById("brandicon")
+                icondiv.classList.add(hosthandler.iconClass)
+
+                // Set background
+                let brandheaddiv = document.getElementById("brandhead")
+                brandheaddiv.style.backgroundColor = hosthandler.backgroundColor
+
+                // Run function
+                host.handlerfunction()
+            } else {
+                // If no handler set
+                let addthis = "nothing to do"
+                    document.getElementById("prod").innerHTML = myHost + " - " + info.platform + addthis;
+            }
+        }
+
         Office.onReady(function (info) {
 
             var myHost = info.host;
+            handleHost(myHost)
 
             // if word - pages
             // if ppt - slides
             // if excel - sheets
-            var addthis = ""
+            // var addthis = ""
 
-            switch (myHost) {
-                case Office.HostType.Excel:
-                    Excel.run(function (context) {
-                        addthis = context.workbook.worksheets.getCount();
-                        return context.sync().then(function () {
-                            document.getElementById("prod").innerHTML = myHost + " - " + info.platform + " - " + addthis.value + " sheets"
-                            // 
-                        });
-                    })
-                    break;
-                case Office.HostType.Word:
-                    Word.run(function (context) {
-                        var paracoll = context.document.body.paragraphs
-                        paracoll.load("items")
-                        return context.sync().then(function () {
-                            document.getElementById("prod").innerHTML = myHost + " - " + info.platform + " - " + paracoll.items.length + " paragraphs"
-                            // 
-                        });
-                    })
-                    break;
-                default:
-                    addthis = "nothing to do"
-                    document.getElementById("prod").innerHTML = myHost + " - " + info.platform + addthis;
-                    break;
-            }
-
-
-
-            /*
-            
-            
-            if (info.host === Office.HostType.Excel) {
-                // Do Excel-specific initialization (for example, make add-in task pane's
-                // appearance compatible with Excel "green").
-            }
-            if (info.platform === Office.PlatformType.PC) {
-                // Make minor layout changes in the task pane.
-            }
-            */
+            // switch (myHost) {
+            //     case Office.HostType.Excel:
+            //         break;
+            //     case Office.HostType.Word:
+            //         break;
+            //     default:
+            //         break;
+            // }
             console.log(`Office.js is now ready in ${info.host} on ${info.platform}`);
         });
     </script>

@@ -1,0 +1,18 @@
+div.brandhead {
+    position: relative;
+}
+
+div.head>div {
+    display: inline-block;
+    vertical-align: middle
+}
+
+div.caption {
+    color: white;
+    padding: 10px
+}
+
+div.caption h1 {
+    padding: 0;
+    margin: 0;
+}
